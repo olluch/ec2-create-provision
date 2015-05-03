@@ -1,0 +1,17 @@
+--- # Create ec2 instance playbook
+
+- hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - { role: launch_instance, tags: ["launch_instance"] }
+  # use --tags "launch_instance" to ansible-playbook command in order to run this play only
+  # the play below will not be run when using --tags "launch_instance"
+
+  # Adapt remote_user to your AMI's default user
+- hosts: ec2hosts
+  gather_facts: true
+  remote_user: ubuntu
+  sudo: True
+  roles:
+    - bootstrap

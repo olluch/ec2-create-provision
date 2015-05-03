@@ -1,0 +1,15 @@
+--- # Provision a running ec2 instance playbook
+
+# tag_Name_myserver would match an EC2 instance with tag 'Name: myserver'.
+# Generally, one would use 'hosts: all' and use the command line parameter
+# --limit to narrow the list of servers to target. However, to avoid modifying
+# a whole server farm by mistake, I'd rather not set 'all' as the default
+# paremeter on the play.
+
+  # Adapt remote_user to your AMI's default user
+- hosts: tag_Name_ec2myserver
+  gather_facts: true
+  remote_user: ubuntu
+  sudo: yes
+  roles:
+    - nginx

@@ -1,0 +1,5 @@
+keypair: "<your keypair here>"
+instance_type: "<your instance type here>"
+image: "ami-<ami num here>"
+group: "<your security group here>"
+region: "<region here>"

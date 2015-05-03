@@ -1,0 +1,28 @@
+--- # bootstrap/tasks/bootstrap.yml
+# Prints facts gathered from the remote machine
+# Updates machine hostname
+
+- name: fetch instance data from the metadata servers in ec2
+  ec2_facts:
+
+- name: show all known facts for this host
+  debug: var=hostvars[inventory_hostname]
+
+- name: just show the instance-id
+  debug: msg="{{ hostvars[inventory_hostname]['ansible_ec2_instance_id'] }}"
+
+- name: gather ec2 instance tags
+  ec2_tag: resource={{ hostvars[inventory_hostname]['ansible_ec2_instance_id'] }} region={{ hostvars[inventory_hostname]['ansible_ec2_placement_region'] }} state=list aws_access_key={{aws_access_key}} aws_secret_key={{aws_secret_key}}
+  register: inst_tags
+
+- name: show all known facts for this host
+  debug: var=inst_tags
+
+- name: change hostname
+  hostname: name="{{ inst_tags.tags.Name }}"
+
+- name: refresh instance facts
+  setup:
+
+- name: show hostname from facts
+  debug: var=hostvars[inventory_hostname]['ansible_hostname']
