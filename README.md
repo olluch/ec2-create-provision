@@ -26,7 +26,7 @@ To create a new EC2 instance named `ec2myserver` run the following command:
 
     ansible-playbook -i new_hosts create_instance.yml
 
-To change the name of the instance, please append `--extra-vars 'instance_name: newName'` to the above command.
+To change the name of the instance, please append `--extra-vars 'inst_name=newName'` to the above command.
 
 ## Provision a running EC2 instance
 
